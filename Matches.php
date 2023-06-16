@@ -1,8 +1,8 @@
 <?php
 enum Matches : string
 {
-
-    case isin = '/<a\s+class="c-faceplate__company-link"\s+href="([^"]+)"\s+title="([^"]+)"/';
+    case isin = '/<a\s+class="c-faceplate__company-link"\s+href="([^"]+)"/';
+    case title = '<a\s+class="c-faceplate__company-link"\s+[^^]{0,100}\s+title="([^"]+)"';
 
     /* TABLE ENTREPRISE */
     case label = "label";
