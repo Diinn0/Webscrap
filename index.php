@@ -3,8 +3,23 @@
 include "Matches.php";
 include "core/fetch.function.php";
 
-$matches = null;
+$result = [];
 
-preg_match(Matches::isin->value, fetch_with_code('1rAMT') , $matches, PREG_OFFSET_CAPTURE);
+if (!empty($_GET['code']))
+{
+    $content = curl_with_code(htmlspecialchars($_GET['code']));
+    foreach (Matches::cases() as $match)
+    {
+        $matches = null;
+        preg_match($match->value, $content, $matches);
 
-var_dump($matches);
+        if (isset($matches[1][0])) {
+            $result[] = [$match->name, $matches[1]];
+        }
+
+    }
+
+    var_dump($result);
+}
+
+
