@@ -1,0 +1,4 @@
+docker pull
+
+docker run --name scrap_php -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
+

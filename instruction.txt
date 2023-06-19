@@ -1,0 +1,17 @@
+Dans notre cas la base de données est crée avec une image docker "mysql"
+et voici c'est spécifications:
+    - user : root
+    - password : root
+    - nom_bdd : Scrap
+    - port : 3306 vers 3306
+    - nom du container docker : scrap_php
+    - Interaction simple avec MySql Workbench
+
+Si vous souhaitez uniquement créer la base de données:
+    - Exécutez le fichier "database.sql" dans votre base de données
+    - Exécutez le ficher "scrap.php" afin de récupérer le plus de données possibles de façon initiale
+    - Exécutez le fichier "scrap_daemon.php" afin de lancer l'exécuteur de script tous les x délai défini
+
+Si vous souhaitez pouvoir visualiser ces données sur internet:
+    - Faites toutes les étapes de la partie ci-dessus
+    - Ouvrez le fichier index.html
