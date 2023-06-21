@@ -1,0 +1,25 @@
+Entreprise:
+    - Label
+    - Code ISIN
+    - Code ent
+
+Cours:
+    - Cours
+    - Date
+    - Ouverture
+    - Cloture
+    - Cours_haut
+    - Cours_bas
+    - Limite_haut
+    - Limite_bas
+    - Volume
+    - Variation
+    - idEntreprise
+
+Message:
+    - Titre
+    - Contenu
+    - Auteur
+    - Date
+    - idMessageTo (défault = -1) Indique si le message répond à un autre message
+    - idEntreprise
