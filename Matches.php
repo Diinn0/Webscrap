@@ -16,7 +16,7 @@ enum Matches : string
     case volume = '/<span\s+class="c-instrument c-instrument--totalvolume" data-ist-totalvolume>([\d+ ?]+[.]{0,1}[\d]+)/';
     case variation = '/<span\s+class="c-instrument c-instrument--variation" data-ist-variation>([\d+ ?]+[.]{0,1}[\d]+)/';
 
-    
+
 //
 //    /* TABLE MESSAGE */
 //

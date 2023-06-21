@@ -1,0 +1,6 @@
+{
+    "require": {
+        "php-webdriver/webdriver": "^1.14",
+        "symfony/dotenv": "^6.3"
+    }
+}
