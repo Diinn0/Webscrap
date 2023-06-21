@@ -10,10 +10,10 @@ class Action
     private float $closing;
     private float $high_flow;
     private float $low_flow;
-    private float $high_limit;
-    private float $low_limit;
+    //private float $high_limit;
+    //private float $low_limit;
     private int $volume;
-    private float $variation;
+    //private float $variation;
     private int $idCompany;
 
     /**
@@ -29,7 +29,7 @@ class Action
      * @param float $variation
      * @param int $idCompany
      */
-    public function __construct(string $date, float $flow, float $opening, float $closing, float $high_flow, float $low_flow, float $high_limit, float $low_limit, int $volume, float $variation, int $idCompany)
+    /*public function __construct(string $date, float $flow, float $opening, float $closing, float $high_flow, float $low_flow, float $high_limit, float $low_limit, int $volume, float $variation, int $idCompany)
     {
         $this->date = $date;
         $this->flow = $flow;
@@ -42,34 +42,67 @@ class Action
         $this->volume = $volume;
         $this->variation = $variation;
         $this->idCompany = $idCompany;
+    }*/
+
+    public function __construct(string $date, float $flow, float $opening, float $closing, float $high_flow, float $low_flow, int $volume, int $idCompany)
+    {
+        $this->date = $date;
+        $this->flow = $flow;
+        $this->opening = $opening;
+        $this->closing = $closing;
+        $this->high_flow = $high_flow;
+        $this->low_flow = $low_flow;
+        $this->volume = $volume;
+        $this->idCompany = $idCompany;
     }
 
     public static function addAction(Action $action) : bool {
 
         $pdo = new Database();
-        $request = $pdo->getPdoInstance()->prepare("INSERT INTO Message 
-                                                (
-                                                 'date_heure', 'cours', 'ouverture_cours', 'cloture_veille', 
-                                                 'cours_haut', 'cours_bas', 'limite_haut', 'limite_bas',
-                                                 'volume', 'variation', 'idEntreprise'
-                                                 )
-                                                VALUES
-                                                (
-                                                 :date, :flow, :opening, :closing,
+        $request = $pdo->getPdoInstance()->prepare("
+                                            insert into Cours (
+                                                               cours, ouverture_cours, cloture_veille, cours_haut, cours_bas, 
+                                                               limite_haut,limite_bas, volume, variation, idEntreprise
+                                                                )
+                                            VALUES (
+                                                 :flow, :opening, :closing,
                                                  :highFlow, :lowFlow, :highLimit, :lowLimit,
                                                  :volume, :variation, :idEnt
-                                                 )");
+                                            );
+        ");
 
-        $request->bindValue(':date', $action->date);
         $request->bindValue(':flow', $action->flow);
         $request->bindValue(':opening', $action->opening);
-        $request->bindValue(':closign', $action->closing);
+        $request->bindValue(':closing', $action->closing);
         $request->bindValue(':highFlow', $action->high_flow);
         $request->bindValue(':lowFlow', $action->low_flow);
         $request->bindValue(':highLimit', $action->high_limit);
         $request->bindValue(':lowLimit', $action->low_limit);
         $request->bindValue(':volume', $action->volume);
         $request->bindValue(':variation', $action->variation);
+        $request->bindValue(':idEnt', $action->idCompany);
+
+        return $request->execute();
+    }
+
+    public static function addSimpleAction(Action $action) : bool {
+
+        $pdo = new Database();
+        $request = $pdo->getPdoInstance()->prepare("
+                                            insert into Cours (
+                                                               cours, ouverture_cours, cloture_veille, cours_haut, cours_bas, volume, idEntreprise
+                                                            )
+                                            VALUES (
+                                                 :flow, :opening, :closing, :highFlow, :lowFlow, :volume, :idEnt
+                                            );
+        ");
+
+        $request->bindValue(':flow', $action->flow);
+        $request->bindValue(':opening', $action->opening);
+        $request->bindValue(':closing', $action->closing);
+        $request->bindValue(':highFlow', $action->high_flow);
+        $request->bindValue(':lowFlow', $action->low_flow);
+        $request->bindValue(':volume', $action->volume);
         $request->bindValue(':idEnt', $action->idCompany);
 
         return $request->execute();
@@ -83,8 +116,6 @@ class Action
 
         $actions = array();
 
-        var_dump($result);
-
         foreach ($result as $row) {
 
             $flow = $row['cours'];
@@ -93,16 +124,12 @@ class Action
             $closing = $row['cloture_veille'];
             $highFlow = $row['cours_haut'];
             $lowFlow = $row['cours_bas'];
-            $highLimit = $row['limite_haut'];
-            $lowLimit = $row['limite_bas'];
             $volume = $row['volume'];
-            $variation = $row['variation'];
             $idEntreprise = $row['idEntreprise'];
 
             $action = new Action(
                 $date, $flow, $opening, $closing,
-                $highFlow, $lowFlow, $highLimit, $lowLimit,
-                $volume, $variation, $idEntreprise
+                $highFlow, $lowFlow, $volume, $idEntreprise
             );
 
             $actions[] = $action;
@@ -113,9 +140,9 @@ class Action
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getDate(): DateTime
+    public function getDate(): string
     {
         return $this->date;
     }
