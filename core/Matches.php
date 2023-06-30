@@ -14,9 +14,9 @@ enum Matches : string
     case haut = '/<span\s+class="c-instrument c-instrument--high" data-ist-high>([\d+ ?]+[.]{0,1}[\d]+)/';
     case bas = '/<span\s+class="c-instrument c-instrument--low" data-ist-low>([\d+ ?]+[.]{0,1}[\d]+)/';
     case volume = '/<span\s+class="c-instrument c-instrument--totalvolume" data-ist-totalvolume>([\d+ ?]+[.]{0,1}[\d]+)/';
-    case variation = '/<span\s+class="c-instrument c-instrument--variation" data-ist-variation>([\d+ ?]+[.]{0,1}[\d]+)/';
-
-
+//    case variation = '/<span\s+class="c-instrument c-instrument--variation" data-ist-variation>([\d+ ?]+[.]{0,1}[\d]+)/';
+    case variation = '/<span class="u-color-stream-down"><span class="c-instrument c-instrument--variation" data-ist-variation>([\d+ ?]+[.]{0,1}[\d]+)/';
+    case actuel = '/<span\s+class="c-instrument c-instrument--last" data-ist-last>([\d+ ?]+[.]{0,1}[\d]+)/';
 //
 //    /* TABLE MESSAGE */
 //
